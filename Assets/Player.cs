@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    float VectorX = 0f;
+    float VectorY = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Translate(VectorX,VectorY,0);
         if (Input.GetKeyDown(KeyCode.I))
         {
             GetComponent<Renderer> ().material.color = Color.white;
@@ -31,11 +34,11 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            transform.Translate(1,0,0);
+            VectorX = VectorX + 0.2f;
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            transform.Translate(-1,0,0);
+            VectorX = VectorX - 0.2f;
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -43,6 +46,14 @@ public class Player : MonoBehaviour
             {
                 transform.Translate(0,0.1f,0);
             }
+        }
+        if (VectorX < 0f)
+        {
+            VectorX = VectorX + 0.1f;
+        }
+        if (VectorX > 0f)
+        {
+            VectorX = VectorX - 0.1f;
         }
     }
 }
