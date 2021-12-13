@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float VectorX = 0f;
-    float VectorY = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,46 +13,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(VectorX,VectorY,0);
-        if (Input.GetKeyDown(KeyCode.I))
+        transform.Rotate(0f,0f,0f);
+        if (Input.GetKey(KeyCode.Space))
         {
-            GetComponent<Renderer> ().material.color = Color.white;
-        }
-        if (Input.GetKeyDown(KeyCode.R))
+            transform.Translate(0,0.1f,0);
+        } 
+        if (Input.GetKey(KeyCode.D))
         {
-            GetComponent<Renderer> ().material.color = Color.red;
+            transform.Translate(0.1f,0,0);
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.Q))
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            transform.Translate(-0.1f,0,0);
         }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GetComponent<Renderer>().material.color = Color.blue;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            VectorX = VectorX + 0.2f;
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            VectorX = VectorX - 0.2f;
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                transform.Translate(0,0.1f,0);
-            }
-        }
-        if (VectorX < 0f)
-        {
-            VectorX = VectorX + 0.1f;
-        }
-        if (VectorX > 0f)
-        {
-            VectorX = VectorX - 0.1f;
-        }
-        
     }
 }
