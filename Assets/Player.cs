@@ -32,15 +32,15 @@ public class Player : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
-        if (Input.GetKeyPress(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             VectorX = VectorX + 0.2f;
         }
-        if (Input.GetKeyPress(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             VectorX = VectorX - 0.2f;
         }
-        if (Input.GetKeyPress(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             for (int i = 0; i < 10; i++)
             {
@@ -55,5 +55,6 @@ public class Player : MonoBehaviour
         {
             VectorX = VectorX - 0.1f;
         }
+        
     }
 }
