@@ -16,10 +16,6 @@ public class Adversary : MonoBehaviour
         if (collision.transform.CompareTag("Player") && sante > 0){
             play.takeDamage(2);
         }
-        if(sante<=0)
-        {
-            Destroy(gameObject);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.transform.CompareTag("AttackPlayer")){

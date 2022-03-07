@@ -38,7 +38,7 @@ public class Direction : MonoBehaviour
                 DirectionLeft = false;
             }
         }
-        if (Input.GetKey(KeyCode.DownArrow)){
+        if (Input.GetKeyDown(KeyCode.DownArrow)){
             transform.position = new Vector3(transform.position.x,-3.5f,0);
             if (!crouch && rotate){
                 if (DirectionLeft){
@@ -49,10 +49,10 @@ public class Direction : MonoBehaviour
                 crouch = true;
             }
         }
-        if (Input.GetKey(KeyCode.UpArrow)){
+        if (Input.GetKeyDown(KeyCode.UpArrow)){
             transform.position = new Vector3(transform.position.x,3.5f,0);
             if (crouch && rotate){
-                if (DirectionLeft && rotate){
+                if (DirectionLeft){
                     transform.Rotate (0,0,-45,Space.World);
                 } else {
                     transform.Rotate (0,0,45,Space.World);
