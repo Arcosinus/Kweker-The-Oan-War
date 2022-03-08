@@ -43,7 +43,7 @@ public class Menu : MonoBehaviour
             choix--;
         }
         if(Input.GetKeyDown(KeyCode.Space)&& choix == 1){
-            lancement.GetComponent<CameraP>().enabled = true;
+            lancement.GetComponent<Intro>().enabled = true;
             zoom = true;
             menu.Stop();
         }

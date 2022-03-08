@@ -18,8 +18,8 @@ public class Rentrer : MonoBehaviour
     bool fast = false;
     public void retourvaisseau(){
         if (Input.GetKeyDown(KeyCode.F)&&fast){
-            transform.position = new Vector3(-48,70,transform.position.z);
-            play.transform.position = new Vector3(-64,95,play.transform.position.z);
+            transform.position = new Vector3(0,70,transform.position.z);
+            play.transform.position = new Vector3(-16,95,play.transform.position.z);
             fast = false;
             fondu.GetComponent<GestionWait>().waitScreen(3);
         }
@@ -66,11 +66,6 @@ public class Rentrer : MonoBehaviour
     {
         if (retour == true){
             porte.GetComponent<Collider2D>().enabled = false;
-            if (cam.transform.position.y >=51.2f && transform.position.x != -48){
-                transform.position = new Vector3(-48,transform.position.y,transform.position.z);
-                play.transform.position = new Vector3(-64,play.transform.position.y+0.5f,play.transform.position.z);
-                retourvaisseau();
-            }
             if (transform.position.y < 80){
                 porte.GetComponent<Collider2D>().enabled = true;
                 transform.position = new Vector3(transform.position.x,transform.position.y+0.02f,transform.position.z);
@@ -88,11 +83,6 @@ public class Rentrer : MonoBehaviour
         }
         if (entrer == true){
             porte.GetComponent<Collider2D>().enabled = false;
-            if (cam.transform.position.y <=51.2f && transform.position.x != 0){
-                transform.position = new Vector3(0,transform.position.y,transform.position.z);
-                play.transform.position = new Vector3(-16.65f,play.transform.position.y-0.5f,play.transform.position.z);
-                sortievaisseau();
-            }
             if (transform.position.y > 0){
                 porte.GetComponent<Collider2D>().enabled = true;
                 transform.position = new Vector3(transform.position.x,transform.position.y-0.02f,transform.position.z);
