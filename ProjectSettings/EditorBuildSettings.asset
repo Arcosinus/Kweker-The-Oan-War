@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Map.unity
     guid: dd64d28de39434c1a97a48c7a5c529c1
   - enabled: 1
-    path: Assets/Scenes/Infiltration.unity
+    path: Assets/Scenes/Protection Genetix.unity
     guid: a20bce5ea6abf4b0aab3ce5d9bad2246
   - enabled: 1
     path: Assets/Scenes/Repaire Genetix.unity
