@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public Animator ame;
     public GameObject energy;
+    public GameObject boostHUD;
     public GameObject expression;
     bool saut = false;
     bool boost = false;
@@ -101,6 +102,14 @@ public class Player : MonoBehaviour
         }
         if (sante > 0)
         {
+            if (boost)
+            {
+                boostHUD.GetComponent<SpriteRenderer>().color = Color.grey;
+            }
+            else
+            {
+                boostHUD.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
             if (vuln == false)
             {
                 if (GetComponent<SpriteRenderer>().color == Color.white)
@@ -194,7 +203,7 @@ public class Player : MonoBehaviour
         if (sante == 0)
         {
             ambiance.Stop();
-            if (gameOver == 200)
+            if (gameOver == 350)
             {
                 fingame.Play();
                 fondu = Color.blue;
@@ -208,14 +217,14 @@ public class Player : MonoBehaviour
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
             } 
-            else if (gameOver <= 250)
+            else if (gameOver <= 400)
             {
                 fondu.a += 0.1f;
                 Mosaica.a += 0.1f;
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 gameOver++;
             } 
-            else if (gameOver <= 300)
+            else if (gameOver <= 500)
             {
                 fondu.b -= 0.025f;
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
@@ -225,7 +234,7 @@ public class Player : MonoBehaviour
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
             } 
-            else if (gameOver >= 350)
+            else if (gameOver >= 550)
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {

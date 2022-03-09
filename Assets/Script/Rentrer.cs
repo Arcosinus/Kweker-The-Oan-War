@@ -68,6 +68,7 @@ public class Rentrer : MonoBehaviour
             porte.GetComponent<Collider2D>().enabled = false;
             if (transform.position.y < 80){
                 porte.GetComponent<Collider2D>().enabled = true;
+                play.transform.position = new Vector3(play.transform.position.x,play.transform.position.y+0.02f,play.transform.position.z);
                 transform.position = new Vector3(transform.position.x,transform.position.y+0.02f,transform.position.z);
                 retourvaisseau();
             }
@@ -85,6 +86,7 @@ public class Rentrer : MonoBehaviour
             porte.GetComponent<Collider2D>().enabled = false;
             if (transform.position.y > 0){
                 porte.GetComponent<Collider2D>().enabled = true;
+                play.transform.position = new Vector3(play.transform.position.x,play.transform.position.y-0.02f,play.transform.position.z);
                 transform.position = new Vector3(transform.position.x,transform.position.y-0.02f,transform.position.z);
                 sortievaisseau();
             }

@@ -31,7 +31,6 @@ public class CameraP : MonoBehaviour
         {
             transform.Translate(0,-0.5f,0);
             transform.position = new Vector3(player.position.x,transform.position.y,-5);
-            intromusique.Stop();
         }
         if (transform.position.y <= player.position.y+2 && !finintro)
         {

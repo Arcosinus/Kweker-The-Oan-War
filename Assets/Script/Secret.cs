@@ -20,7 +20,7 @@ public class Secret: MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            transform.position = new Vector3(0,0,-4);
+            transform.position = new Vector3(0,0,-3);
             if (back)
             {
                 back.transform.position = new Vector3(0,0,-6);
