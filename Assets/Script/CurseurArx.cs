@@ -6,42 +6,60 @@ using TMPro;
 
 public class CurseurArx : MonoBehaviour
 {
-    public TextMeshProUGUI info;
+    public GameObject info;
+    public GameObject etat;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.childCount == 1)
+        if (collision.transform.childCount == 1 && collision.GetComponent<SpriteRenderer>().color != Color.grey)
         {
             name = collision.name;
-            info.GetComponent<TextMeshProUGUI>().text = "://" + name + "\n" + collision.transform.GetChild(0).name;
+            info.GetComponent<TextMeshPro>().text = "://" + name + "\n" + collision.transform.GetChild(0).name;
+            if (collision.GetComponent<SpriteRenderer>().color == Color.green)
+            {
+                etat.GetComponent<TextMeshPro>().text = "Sécurisé";
+            }
+            if (collision.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                etat.GetComponent<TextMeshPro>().text = "Inexploré";
+            }
         }
         else
         {
-            name = collision.name;
-            info.GetComponent<TextMeshProUGUI>().text = "://" + name;
+            info.GetComponent<TextMeshPro>().text = "://Inaccessible";
+            etat.GetComponent<TextMeshPro>().text = "Inexploré";
         }
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space) && collision.GetComponent<SpriteRenderer>().color != Color.grey){
             SceneManager.LoadScene(name);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.childCount == 1)
+        if (collision.transform.childCount == 1 && collision.GetComponent<SpriteRenderer>().color != Color.grey)
         {
             name = collision.name;
-            info.GetComponent<TextMeshProUGUI>().text = "://" + name + "\n" + collision.transform.GetChild(0).name;
+            info.GetComponent<TextMeshPro>().text = "://" + name + "\n" + collision.transform.GetChild(0).name;
+            if (collision.GetComponent<SpriteRenderer>().color == Color.green)
+            {
+                etat.GetComponent<TextMeshPro>().text = "Sécurisé";
+            }
+            if (collision.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                etat.GetComponent<TextMeshPro>().text = "Inexploré";
+            }
         }
         else
         {
-            name = collision.name;
-            info.GetComponent<TextMeshProUGUI>().text = "://" + name;
+            info.GetComponent<TextMeshPro>().text = "://Inaccessible";
+            etat.GetComponent<TextMeshPro>().text = "Inexploré";
         }
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space) && collision.GetComponent<SpriteRenderer>().color != Color.grey){
             SceneManager.LoadScene(name);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        info.GetComponent<TextMeshProUGUI>().text = "://Analyse";
+        info.GetComponent<TextMeshPro>().text = "://Analyse";
+        etat.GetComponent<TextMeshPro>().text = "";
     }
     private Vector3 vel = Vector3.zero;
     // Start is called before the first frame update
@@ -62,6 +80,22 @@ public class CurseurArx : MonoBehaviour
         ame.SetFloat("Move", Xmov);
         if (Xmov == 0){
             ame.SetFloat("Move", Ymov);
+        }
+        if (transform.position.x >= 6.2f)
+        {
+            transform.position = new Vector3(-5.8f,transform.position.y,transform.position.z);
+        }
+        if (transform.position.x <= -5.9f)
+        {
+            transform.position = new Vector3(6.1f,transform.position.y,transform.position.z);
+        }
+        if (transform.position.y <= -4)
+        {
+            transform.position = new Vector3(transform.position.x,4.3f,transform.position.z);
+        }
+        if (transform.position.y >= 4.4f)
+        {
+            transform.position = new Vector3(transform.position.x,-3.9f,transform.position.z);
         }
     }
 }
