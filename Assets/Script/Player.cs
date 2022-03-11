@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -32,8 +33,74 @@ public class Player : MonoBehaviour
     bool boost = false;
     private Vector3 vel = Vector3.zero;
     public float movespeed;
+    public int currentAmmo;
+    public int maxAmmo = 10;
+    public bool isFiring;
+    public Text ammoDisplay;
+    [SerializeField] private bool _infiniteShield, _isShieldActive;
+    [SerializeField] private int _maxShield = 50, _currentShield;
+    [SerializeField] private Slider shieldBar;
+    [SerializeField]
+
+    void DamageShield(int dmg)
+    {
+      if(_infiniteShield == false)
+      {
+        _currentShield = dmg;
+        if(_currentShield < 1)
+        {
+          DesactiveShield();
+        }
+        if(_currentShield < 15)
+        {
+          Debug.Log("Shield very low");
+        }
+      }
+      else
+        return;
+    }
+
+    void DesactiveShield()
+    {
+      Debug.Log("Shield Desactivate");
+    }
+
+    // void SetShield()
+    // {
+    //   _currentShield - _maxShield;
+    // }
+    public void SetInitializeShield(int maxShield)
+    {
+      shieldBar.maxValue = maxShield;
+      shieldBar.value = maxShield;
+    }
+    public void UpdateShield(int currentShield)
+    {
+      shieldBar.value = currentShield;
+    }
+
     public void takeDamage(int dmg)
     {
+      if(_isShieldActive == true)
+      {
+        DamageShield(dmg);
+        Debug.Log("Damage Shield Active");
+        return;
+      }
+      if(_infiniteShield == false)
+      {
+        sante -= dmg;
+        if(_currentShield < 1)
+        {
+          Debug.Log("Shield 1");
+        }
+        if(_currentShield < 20)
+        {
+          Debug.Log("Shield low");
+        }
+      }
+      else
+      return;
         if (sante != 0)
         {
             if (vuln == true)
@@ -67,7 +134,7 @@ public class Player : MonoBehaviour
             Origine = transform.position;
             ActualCheck = collision.transform;
             ActualCheck.GetComponent<SpriteRenderer>().color = Color.green;
-            
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -88,11 +155,13 @@ public class Player : MonoBehaviour
     {
         Origine = transform.position;
         ambiance.Play();
+        ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         transform.position = new Vector3(transform.position.x,transform.position.y,0);
         if (transform.position.y <= 16)
         {
@@ -117,8 +186,8 @@ public class Player : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = Color.red;
                 energy.GetComponent<SpriteRenderer>().color = Color.red;
                 expression.GetComponent<SpriteRenderer>().color = Color.red;
-                } 
-                else 
+                }
+                else
                 {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -130,8 +199,8 @@ public class Player : MonoBehaviour
                     invincTime = 0;
                 }
                 invincTime++;
-            } 
-            else 
+            }
+            else
             {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -144,12 +213,45 @@ public class Player : MonoBehaviour
                 attaque.GetComponent<Direction>().enabled = false;
                 attaque.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) && !isFiring && currentAmmo > 0)
             {
+              fireWeapon();
+            }
+            void fireWeapon()
+            {
+              if(currentAmmo > 0)
+              {
+                isFiring = true;
+                currentAmmo--;
+                isFiring = false;
+                refreshAmmoDisplay(currentAmmo, maxAmmo);
                 GameObject attaquetir;
                 attaquetir = Instantiate(Tir, GetComponent<Transform>());
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
+              }
+              else if(currentAmmo <= 0)
+              {
+                currentAmmo = 0;
+                isFiring = false;
+                refreshAmmoDisplay(currentAmmo, maxAmmo);
+                // refreshAmmo();
+              }
+            }
+            void refreshAmmoDisplay(int currentAmmo,int maxAmmo)
+            {
+              ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
+            }
+            if(Input.GetKeyDown(KeyCode.M) && currentAmmo >= 0)
+            {
+              refreshAmmo();
+            }
+            void refreshAmmo()
+            {
+              // isFiring = true;
+              // ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
+              currentAmmo = maxAmmo;
+              refreshAmmoDisplay(currentAmmo, maxAmmo);
             }
             if (Input.GetKeyDown(KeyCode.Space)&&!(saut))
             {
@@ -173,16 +275,16 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.DownArrow))
                 {
                     rb.AddForce(new Vector2(0,-500f));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.LeftArrow))
                 {
                     rb.AddForce(new Vector2(-3000f,0));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.RightArrow))
                 {
                     rb.AddForce(new Vector2(3000f,0));
-                } 
-                else 
+                }
+                else
                 {
                     rb.AddForce(new Vector2(0,300f));
                 }
@@ -216,14 +318,14 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 400)
             {
                 fondu.a += 0.1f;
                 Mosaica.a += 0.1f;
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 500)
             {
                 fondu.b -= 0.025f;
@@ -233,7 +335,7 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver >= 550)
             {
                 if (Input.GetKeyDown(KeyCode.F))
@@ -246,7 +348,7 @@ public class Player : MonoBehaviour
                     ambiance.Play();
                 }
             }
-            else 
+            else
             {
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 Gameover2.GetComponent<SpriteRenderer>().color = fondu;
