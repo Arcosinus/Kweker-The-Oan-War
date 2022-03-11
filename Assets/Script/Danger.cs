@@ -10,6 +10,11 @@ public class Danger : MonoBehaviour
             play.takeDamage(2);
         }
     }
+    private void OnCollisionStay2D(Collision2D collision){
+        if (collision.transform.CompareTag("Player")){
+            play.takeDamage(2);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

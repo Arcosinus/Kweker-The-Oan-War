@@ -6,7 +6,7 @@ public class Progression : MonoBehaviour
 {
     public int prog = 1;
     public int lvl = 0;
-    public double inspect = 0;
+    public int inspect = 0;
     public GameObject Arxcoz;
     public GameObject[] niveau;
     public GameObject[] carte;
@@ -63,7 +63,7 @@ public class Progression : MonoBehaviour
             carte[3].transform.position = new Vector3(carte[0].transform.position.x,carte[0].transform.position.y,1);
             carte[4].transform.position = new Vector3(carte[0].transform.position.x,carte[0].transform.position.y,0);
         }
-        else if (prog > 6 && inspect == 1)
+        else if (prog > 6 && inspect == 111)
         {
             carte[0].transform.position = new Vector3(carte[0].transform.position.x,carte[0].transform.position.y,1);
             carte[1].transform.position = new Vector3(carte[0].transform.position.x,carte[0].transform.position.y,1);
@@ -118,12 +118,36 @@ public class Progression : MonoBehaviour
                 niveau[i].GetComponent<SpriteRenderer>().color = Color.green;
                 i++;
             }
-            niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
-            i++;
-            niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
-            i++;
-            niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
-            i++;
+            if (inspect == 1 || inspect - 10 == 1 || inspect - 100 == 1 || inspect - 110 == 1)
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.green;
+                i++;
+            }
+            else
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
+                i++;
+            }
+            if (inspect == 10 || inspect - 1 == 10 || inspect - 100 == 10 || inspect - 101 == 10)
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.green;
+                i++;
+            }
+            else
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
+                i++;
+            }
+            if (inspect == 100 || inspect - 1 == 100 || inspect - 10 == 100 || inspect - 11 == 100)
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.green;
+                i++;
+            }
+            else
+            {
+                niveau[i].GetComponent<SpriteRenderer>().color = Color.red;
+                i++;
+            }
             while(i < niveau.Length)
             {
                 niveau[i].GetComponent<SpriteRenderer>().color = Color.grey;

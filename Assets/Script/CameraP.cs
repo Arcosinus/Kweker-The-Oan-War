@@ -8,8 +8,6 @@ public class CameraP : MonoBehaviour
     bool preintro = true;
     public GameObject[] Script;
     public GameObject Player;
-    //public AudioSource menumusique;
-    public AudioSource intromusique;
     public Transform inter;
     public Transform player;
     public Transform cabine;
@@ -17,11 +15,9 @@ public class CameraP : MonoBehaviour
     public Transform skip;
     float OrigineY = 0.5f;
     float OrigineX = 0;
-    float OrigineZ = 0;
     // Start is called before the first frame update
     void Start()
     {
-        intromusique.Play();
     }
     // Update is called once per frame
     void Update()
@@ -43,57 +39,47 @@ public class CameraP : MonoBehaviour
                 i++;
             }
             Player.GetComponent<Player>().enabled = true;
-            inter.position = new Vector3(inter.position.x,inter.position.y,-4);
+            inter.position = new Vector3(inter.position.x,inter.position.y,-3);
         }
-        if (Input.GetKey(KeyCode.DownArrow) && OrigineY>-0.5f && transform.position.y >= 57.5f)
+        if (Input.GetKey(KeyCode.DownArrow) && OrigineY>-0.5f)
         {
             transform.Translate(0,-0.02f,0);
             OrigineY -= 0.02f;
         }
-        else if (OrigineY < 0.5f && !(Input.GetKey(KeyCode.DownArrow))&& transform.position.y >= 57.5f)
+        else if (OrigineY < 0.5f && !(Input.GetKey(KeyCode.DownArrow)))
         {
             transform.Translate(0,0.02f,0);
             OrigineY += 0.02f;
         }
-        if (Input.GetKey(KeyCode.UpArrow)&&OrigineY<1.5f&& transform.position.y >= 57.5f)
+        if (Input.GetKey(KeyCode.UpArrow)&&OrigineY<1.5f)
         {
             transform.Translate(0,0.02f,0);
             OrigineY += 0.02f;
         }
-        else if (OrigineY > 0.5f && !(Input.GetKey(KeyCode.UpArrow))&& transform.position.y >= 57.5f)
+        else if (OrigineY > 0.5f && !(Input.GetKey(KeyCode.UpArrow)))
         {
             transform.Translate(0,-0.02f,0);
             OrigineY -= 0.02f;
         }
-        if (Input.GetKey(KeyCode.RightArrow)&&OrigineX<1.5f&& transform.position.y >= 57.5f)
+        if (Input.GetKey(KeyCode.RightArrow)&&OrigineX<1.5f)
         {
             transform.Translate(0.02f,0,0);
             OrigineX += 0.02f;
         }
-        else if (OrigineX > 0.5f && !(Input.GetKey(KeyCode.RightArrow))&& transform.position.y >= 57.5f)
+        else if (OrigineX > 0.5f && !(Input.GetKey(KeyCode.RightArrow)))
         {
             transform.Translate(-0.02f,0,0);
             OrigineX -= 0.02f;
         }
-        if (Input.GetKey(KeyCode.LeftArrow)&&OrigineX>-1.5f&& transform.position.y >= 57.5f)
+        if (Input.GetKey(KeyCode.LeftArrow)&&OrigineX>-1.5f)
         {
             transform.Translate(-0.02f,0,0);
             OrigineX -= 0.02f;
         }
-        else if (OrigineX < 0.5f && !(Input.GetKey(KeyCode.LeftArrow))&& transform.position.y >= 57.5f)
+        else if (OrigineX < 0.5f && !(Input.GetKey(KeyCode.LeftArrow)))
         {
             transform.Translate(0.02f,0,0);
             OrigineX += 0.02f;
-        }
-        if (Input.GetKey(KeyCode.J)&&OrigineZ < 2&& transform.position.y >= 57.5f)
-        {
-            transform.Translate(0,0,1);
-            OrigineZ += 1f;
-        }
-        else if (OrigineZ > 0 && !(Input.GetKey(KeyCode.J))&& transform.position.y >= 57.5f)
-        {
-            transform.Translate(0,0,-1);
-            OrigineZ -= 1f;
         }
     }
 }

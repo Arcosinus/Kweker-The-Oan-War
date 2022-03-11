@@ -72,15 +72,23 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Level")&& (saut))
+        if (collision.transform.CompareTag("Level"))
         {
             saut = false;
             boost = false;
         }
         if (collision.transform.CompareTag("Ennemy"))
         {
-            Vector3 repouss = (collision.transform.position - transform.position)*-1;
+            Vector3 repouss = (collision.transform.position - transform.position) * -0.1f;
             transform.Translate(repouss.normalized,Space.World);
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Level"))
+        {
+            saut = false;
+            boost = false;
         }
     }
     // Start is called before the first frame update
@@ -137,48 +145,48 @@ public class Player : MonoBehaviour
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
                 expression.GetComponent<SpriteRenderer>().color = Color.white;
             }
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 GameObject attaque;
                 attaque = Instantiate(Punch, GetComponent<Transform>());
                 attaque.GetComponent<Direction>().enabled = false;
                 attaque.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 GameObject attaquetir;
                 attaquetir = Instantiate(Tir, GetComponent<Transform>());
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.Space)&&!(saut))
+            if (Input.GetKeyDown(KeyCode.L)&&!(saut))
             {
                 rb.AddForce(new Vector2(0,300f));
                 saut = true;
             }
-            if(!Input.GetKey(KeyCode.DownArrow))
+            if(!Input.GetKey(KeyCode.DownArrow) || !Input.GetKey(KeyCode.S))
             {
                 traversable.GetComponent<Collider2D>().enabled = true;
             }
-            if(Input.GetKey(KeyCode.DownArrow))
+            if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.L))
             {
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
-            if (Input.GetKeyDown(KeyCode.C)&&!(boost))
+            if (Input.GetKeyDown(KeyCode.M)&&!(boost))
             {
-                if (Input.GetKey(KeyCode.DownArrow))
+                if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
                 {
                     rb.AddForce(new Vector2(0,-500f));
                 } 
-                else if (Input.GetKey(KeyCode.LeftArrow))
+                else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A))
                 {
                     rb.AddForce(new Vector2(-3000f,0));
                 } 
-                else if (Input.GetKey(KeyCode.RightArrow))
+                else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D))
                 {
                     rb.AddForce(new Vector2(3000f,0));
                 } 
@@ -236,7 +244,7 @@ public class Player : MonoBehaviour
             } 
             else if (gameOver >= 550)
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     Gameover.transform.position = new Vector3(Gameover.transform.position.x,Gameover.transform.position.y,-6);
                     sante = 16;

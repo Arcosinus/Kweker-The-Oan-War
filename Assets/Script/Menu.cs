@@ -7,8 +7,10 @@ public class Menu : MonoBehaviour
     int choix = 1;
     bool zoom = false;
     float zoomlevel = 14;
+    bool command = false;
     public GameObject lancement;
     public AudioSource menu;
+    public GameObject explication;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +36,29 @@ public class Menu : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x,101.6f,transform.position.z);
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow)&& choix < 4)
+        if((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && choix < 4)
         {
             choix++;
         }
-        if(Input.GetKeyDown(KeyCode.UpArrow)&& choix > 1)
+        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && choix > 1)
         {
             choix--;
         }
-        if(Input.GetKeyDown(KeyCode.Space)&& choix == 1){
+        if(Input.GetKeyDown(KeyCode.Space)&& choix == 1)
+        {
             lancement.GetComponent<Intro>().enabled = true;
             zoom = true;
             menu.Stop();
+        }
+        if(Input.GetKeyDown(KeyCode.Space)&& choix == 3 && !command)
+        {
+            explication.transform.position = new Vector3(explication.transform.position.x,explication.transform.position.y,-4);
+            command = true;
+        }
+        else if(Input.GetKeyDown(KeyCode.Space) && choix == 3 && command)
+        {
+            explication.transform.position = new Vector3(explication.transform.position.x,explication.transform.position.y,-6);
+            command = false;
         }
         if(zoom && zoomlevel >= 5.5f){
             zoomlevel -= 0.1f;
@@ -54,7 +67,7 @@ public class Menu : MonoBehaviour
         if(zoom && zoomlevel < 5.5f){
             GetComponent<Menu>().enabled = false;
         }
-        if(Input.GetKeyDown(KeyCode.Space)&& choix == 4){
+        if(Input.GetKeyDown(KeyCode.Space) && choix == 4){
         }
     }
 }

@@ -8,6 +8,7 @@ public class Rentrer : MonoBehaviour
     public GameObject cam;
     public GameObject porte;
     public GameObject camouflage;
+    public GameObject[] Access;
     public AudioSource ground;
     public AudioSource waiting;
     public AudioSource vaisseau;
@@ -17,7 +18,7 @@ public class Rentrer : MonoBehaviour
     bool entrer = true;
     bool fast = false;
     public void retourvaisseau(){
-        if (Input.GetKeyDown(KeyCode.F)&&fast){
+        if (Input.GetKeyDown(KeyCode.Space)&&fast){
             transform.position = new Vector3(0,70,transform.position.z);
             play.transform.position = new Vector3(-16,95,play.transform.position.z);
             fast = false;
@@ -25,7 +26,7 @@ public class Rentrer : MonoBehaviour
         }
     }
     public void sortievaisseau(){
-        if (Input.GetKeyDown(KeyCode.F)&&fast){
+        if (Input.GetKeyDown(KeyCode.Space)&&fast){
             transform.position = new Vector3(0,10,transform.position.z);
             play.transform.position = new Vector3(-16.65f,35.15f,play.transform.position.z);
             fast = false;
@@ -34,7 +35,7 @@ public class Rentrer : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision){
         if (collision.transform.CompareTag("Player")){
-            if (Input.GetKeyDown(KeyCode.V)){
+            if (Input.GetKeyDown(KeyCode.E)){
                 if (retour == false){
                     ground.Stop();
                     waiting.Play();
@@ -43,6 +44,10 @@ public class Rentrer : MonoBehaviour
                     entrer = false;
                     fast = true;
                     camouflage.GetComponent<Collider2D>().enabled = false;
+                    Access[0].transform.position = new Vector3(-19.25f,23.3f,Access[0].transform.position.z);
+                    Access[0].transform.Rotate(0,0,-135,Space.Self);
+                    Access[1].transform.position = new Vector3(-13.75f,23.3f,Access[1].transform.position.z);
+                    Access[1].transform.Rotate(0,0,135,Space.Self);
                 } else if (entrer == false){
                     vaisseau.Stop();
                     waiting.Play();
@@ -95,6 +100,10 @@ public class Rentrer : MonoBehaviour
                 waiting.Stop();
                 if (musique == false)
                 {
+                    Access[0].transform.position = new Vector3(-20,24,Access[0].transform.position.z);
+                    Access[0].transform.Rotate(0,0,135,Space.Self);
+                    Access[1].transform.position = new Vector3(-13,24,Access[1].transform.position.z);
+                    Access[1].transform.Rotate(0,0,-135,Space.Self);
                     musique = true;
                     ground.Play();
                 }
