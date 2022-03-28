@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -32,6 +34,9 @@ public class Player : MonoBehaviour
     bool boost = false;
     private Vector3 vel = Vector3.zero;
     public float movespeed;
+    // public Text ammoDisplay;
+    public TMP_Text AmmoCount;
+
     public void takeDamage(int dmg)
     {
         if (sante != 0)
@@ -67,7 +72,7 @@ public class Player : MonoBehaviour
             Origine = transform.position;
             ActualCheck = collision.transform;
             ActualCheck.GetComponent<SpriteRenderer>().color = Color.green;
-            
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -125,8 +130,8 @@ public class Player : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = Color.red;
                 energy.GetComponent<SpriteRenderer>().color = Color.red;
                 expression.GetComponent<SpriteRenderer>().color = Color.red;
-                } 
-                else 
+                }
+                else
                 {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -138,8 +143,8 @@ public class Player : MonoBehaviour
                     invincTime = 0;
                 }
                 invincTime++;
-            } 
-            else 
+            }
+            else
             {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -181,16 +186,16 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
                 {
                     rb.AddForce(new Vector2(0,-500f));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A))
                 {
                     rb.AddForce(new Vector2(-3000f,0));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D))
                 {
                     rb.AddForce(new Vector2(3000f,0));
-                } 
-                else 
+                }
+                else
                 {
                     rb.AddForce(new Vector2(0,300f));
                 }
@@ -224,14 +229,14 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 400)
             {
                 fondu.a += 0.1f;
                 Mosaica.a += 0.1f;
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 500)
             {
                 fondu.b -= 0.025f;
@@ -241,7 +246,7 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver >= 550)
             {
                 if (Input.GetKeyDown(KeyCode.E))
@@ -254,7 +259,7 @@ public class Player : MonoBehaviour
                     ambiance.Play();
                 }
             }
-            else 
+            else
             {
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 Gameover2.GetComponent<SpriteRenderer>().color = fondu;
