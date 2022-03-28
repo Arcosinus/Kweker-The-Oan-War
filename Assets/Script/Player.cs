@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -34,8 +33,10 @@ public class Player : MonoBehaviour
     bool boost = false;
     private Vector3 vel = Vector3.zero;
     public float movespeed;
-    // public Text ammoDisplay;
-    public TMP_Text AmmoCount;
+    public int currentAmmo;
+    public int maxAmmo = 10;
+    public bool isFiring;
+    public Text ammoDisplay;
 
     public void takeDamage(int dmg)
     {
@@ -101,6 +102,7 @@ public class Player : MonoBehaviour
     {
         Origine = transform.position;
         ambiance.Play();
+        ammoDisplay.text = currentAmmo.ToString() + " / " + maxAmmo.ToString();
     }
 
     // Update is called once per frame
@@ -157,12 +159,45 @@ public class Player : MonoBehaviour
                 attaque.GetComponent<Direction>().enabled = false;
                 attaque.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.I) && !isFiring && currentAmmo > 0)
             {
+              fireWeapon();
+            }
+            void fireWeapon()
+            {
+              if(currentAmmo > 0)
+              {
+                isFiring = true;
+                currentAmmo--;
+                isFiring = false;
+                refreshAmmoDisplay(currentAmmo, maxAmmo);
                 GameObject attaquetir;
                 attaquetir = Instantiate(Tir, GetComponent<Transform>());
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
+              }
+              else if(currentAmmo <= 0)
+              {
+                currentAmmo = 0;
+                isFiring = false;
+                refreshAmmoDisplay(currentAmmo, maxAmmo);
+                // refreshAmmo();
+              }
+            }
+            void refreshAmmoDisplay(int currentAmmo,int maxAmmo)
+            {
+              ammoDisplay.text = currentAmmo.ToString() + " / " + maxAmmo.ToString();
+            }
+            if(Input.GetKeyDown(KeyCode.U) && currentAmmo >= 0)
+            {
+              refreshAmmo();
+            }
+            void refreshAmmo()
+            {
+              // isFiring = true;
+              // ammoDisplay.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
+              currentAmmo = maxAmmo;
+              refreshAmmoDisplay(currentAmmo, maxAmmo);
             }
             if (Input.GetKeyDown(KeyCode.L)&&!(saut))
             {
