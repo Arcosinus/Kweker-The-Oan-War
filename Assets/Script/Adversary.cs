@@ -25,7 +25,7 @@ public class Adversary : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -52,8 +52,8 @@ public class Adversary : MonoBehaviour
             GetComponent<Collider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
-        if (transform.position.y <= 16){
-            Destroy(gameObject);
-        }
+        // if (transform.position.y <= 16){
+        //     Destroy(gameObject);
+        // }
     }
 }
