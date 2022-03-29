@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 408093405}
   m_Layer: 0
   m_Name: ZoneBoss
-  m_TagString: Untagged
+  m_TagString: SafeTir
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1801,6 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sante: 16
+  vuln: 1
   gameOver: 0
   ambiance: {fileID: 1679408053}
   fingame: {fileID: 1101367943}
@@ -1813,11 +1814,14 @@ MonoBehaviour:
   Cam: {fileID: 1495971875}
   Punch: {fileID: 2039200374}
   Tir: {fileID: 1990927961}
+  Napalm: {fileID: 0}
   rb: {fileID: 628653405}
   ame: {fileID: 628653403}
   energy: {fileID: 407747294}
   boostHUD: {fileID: 1028317742}
   expression: {fileID: 1513752564}
+  W1: 
+  W2: 
   movespeed: 5
 --- !u!50 &628653405
 Rigidbody2D:

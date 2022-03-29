@@ -7,6 +7,8 @@ TagManager:
   - AttackPlayer
   - Level
   - Ennemy
+  - TirNapalm
+  - SafeTir
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int sante;
-    bool vuln = true;
+    public bool vuln = true;
     int invincTime = 0;
     public int gameOver = 0;
     Vector3 Origine;
@@ -23,15 +23,23 @@ public class Player : MonoBehaviour
     Transform ActualCheck;
     public GameObject Punch;
     public GameObject Tir;
+    public GameObject Napalm;
     public Rigidbody2D rb;
     public Animator ame;
     public GameObject energy;
     public GameObject boostHUD;
     public GameObject expression;
+    public string W1;
+    public string W2;
     bool saut = false;
     bool boost = false;
     private Vector3 vel = Vector3.zero;
     public float movespeed;
+    float forceY;
+    float oldY;
+    int wait;
+    int munit;
+    int wmunit = 0;
     public void takeDamage(int dmg)
     {
         if (sante != 0)
@@ -110,6 +118,19 @@ public class Player : MonoBehaviour
         }
         if (sante > 0)
         {
+            if (munit > 0)
+            {
+                wmunit--;
+                if (wmunit <= 0)
+                {
+                GameObject attaquetir;
+                attaquetir = Instantiate(Napalm, GetComponent<Transform>());
+                attaquetir.GetComponent<Direction>().enabled = false;
+                attaquetir.GetComponent<Temporary>().enabled = true;
+                munit--;
+                wmunit = 5;
+                }
+            }
             if (boost)
             {
                 boostHUD.GetComponent<SpriteRenderer>().color = Color.grey;
@@ -159,6 +180,10 @@ public class Player : MonoBehaviour
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
             }
+            if (Input.GetKeyDown(KeyCode.O)&& W2 == "Napalm")
+            {
+                munit = 5;
+            }
             if (Input.GetKeyDown(KeyCode.L)&&!(saut))
             {
                 rb.AddForce(new Vector2(0,300f));
@@ -172,10 +197,17 @@ public class Player : MonoBehaviour
             {
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
-            if (Input.GetKey(KeyCode.L))
+            if (wait >= 10)
+            {
+                forceY = transform.position.y - oldY;
+                oldY = transform.position.y;
+                wait = 0;
+            }
+            if (forceY>0)
             {
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
+            wait++;
             if (Input.GetKeyDown(KeyCode.M)&&!(boost))
             {
                 if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))

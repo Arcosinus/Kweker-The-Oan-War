@@ -5,7 +5,9 @@ using UnityEngine;
 public class Adversary : MonoBehaviour
 {
     public int sante;
-    //float PositionMove = 0;
+    public bool Napalm;
+    bool burn;
+    int burncount;
     int dest = 0;
     public float vitmov;
     public Transform pos;
@@ -13,25 +15,56 @@ public class Adversary : MonoBehaviour
     public Transform[] waypoint;
     public Transform target;
     private void OnCollisionEnter2D(Collision2D collision){
-        if (collision.transform.CompareTag("Player") && sante > 0){
+        if (collision.transform.CompareTag("Player") && sante > 0)
+        {
             play.takeDamage(2);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.transform.CompareTag("AttackPlayer")){
+        if (collision.transform.CompareTag("AttackPlayer"))
+        {
             sante -= 1;
+        }
+        if (collision.transform.CompareTag("TirNapalm")&&Napalm)
+        {
+            burn = true;
+            burncount = 0;
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         if (sante >=0){
+            if (burn){
+                if (Color.white == GetComponent<SpriteRenderer>().color)
+                {
+                    GetComponent<SpriteRenderer>().color = Color.yellow;
+                } 
+                else 
+                {
+                    GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                burncount++;
+                if (burncount/100 == 1)
+                {
+                    sante-=1;
+                }
+                if (burncount/100 == 2)
+                {
+                    sante-=1;
+                }
+                if (burncount/100 == 3)
+                {
+                    sante-=1;
+                    burn = false;
+                    burncount = 0;
+                }
+            }
             Vector3 dir = target.transform.position - transform.position;
             transform.Translate(dir.normalized*vitmov,Space.World);
             if (Vector3.Distance(transform.position,target.transform.position) < 0.5f){

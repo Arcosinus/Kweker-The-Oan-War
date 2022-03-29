@@ -8,7 +8,7 @@ public class Temporary : MonoBehaviour
     public float Lifetime;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (movement != 0 && !collision.transform.CompareTag("AttackPlayer"))
+        if (movement != 0 && !collision.transform.CompareTag("AttackPlayer") && !collision.transform.CompareTag("TirNapalm") && !collision.transform.CompareTag("SafeTir"))
         {
             Destroy(gameObject);
         }
@@ -17,6 +17,14 @@ public class Temporary : MonoBehaviour
     void Start()
     {
         Destroy(gameObject,Lifetime);
+        if (GetComponent<Rigidbody2D>())
+        {
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            if(transform.name == "Napalm(Clone)")
+            {
+                GetComponent<Rigidbody2D>().gravityScale = -1;
+            }
+        }
     }
 
     // Update is called once per frame
