@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
               currentAmmo = maxAmmo;
               refreshAmmoDisplay(currentAmmo, maxAmmo);
             }
-            if (Input.GetKeyDown(KeyCode.L)&&!(saut))
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Space) &&!(saut))
             {
                 rb.AddForce(new Vector2(0,300f));
                 saut = true;
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
             {
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
-            if (Input.GetKeyDown(KeyCode.M)&&!(boost))
+            if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.M)&&!(boost))
             {
                 if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
                 {
