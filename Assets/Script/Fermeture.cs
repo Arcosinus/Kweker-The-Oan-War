@@ -11,6 +11,7 @@ public class Fermeture : MonoBehaviour
     public AudioSource ost;
     public AudioSource ambiance;
     public GameObject sante;
+    public bool bossAlive = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
@@ -40,7 +41,7 @@ public class Fermeture : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bossF && porte.transform.position.y > 3)
+        if (bossF && porte.transform.position.y > 3 && bossAlive)
         {
             porte.transform.Translate(0,-0.01f,0);
         }
@@ -55,6 +56,10 @@ public class Fermeture : MonoBehaviour
             boss.GetComponent<Boss1>().enabled = false;
             boss.GetComponent<Boss1>().sante = 60;
             boss.transform.position = new Vector3(20.75f,23.5f,0);
+        }
+        if (!bossAlive)
+        {
+            porte.transform.position = new Vector3(0,6,0);
         }
     }
 }

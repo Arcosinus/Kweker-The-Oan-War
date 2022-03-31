@@ -19,6 +19,7 @@ public class Boss1 : MonoBehaviour
     public GameObject santeHUD;
     public AudioSource ost;
     public AudioSource ambiance;
+    public GameObject zone;
     bool saut;
     int serie;
     private void OnCollisionEnter2D(Collision2D collision){
@@ -122,6 +123,10 @@ public class Boss1 : MonoBehaviour
             GetComponent<Animator>().SetBool("Saut", saut);
             GetComponent<Animator>().SetBool("Mouve", depl);
         } else {
+            if (GameObject.Find("Data").GetComponent<DataStorage>().GetProg()<2){
+                GameObject.Find("Data").GetComponent<DataStorage>().SetProg(2);
+            }
+            zone.GetComponent<Fermeture>().bossAlive = false;
             ost.Stop();
             ambiance.Play();
             GetComponent<SpriteRenderer>().color = Color.red;

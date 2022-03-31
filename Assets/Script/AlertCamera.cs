@@ -7,10 +7,10 @@ public class AlertCamera : MonoBehaviour
     public GameObject player;
     public GameObject arene;
     public GameObject vision;
-    int wait;
     bool alert;
-    bool typeAtt;
+    public bool typeAtt;
     Color change;
+    int wait = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
@@ -34,8 +34,9 @@ public class AlertCamera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    async void Update()
     {
+        int i = 0;
         if(alert){
             Vector3 repouss = (arene.transform.position - player.transform.position) * 0.1f;
             player.transform.Translate(repouss.normalized,Space.World);
@@ -44,27 +45,25 @@ public class AlertCamera : MonoBehaviour
                 alert = false;
             }
         }
-        if(Vector3.Distance(transform.position,player.transform.position) < 10)
+        else if(wait <= 400)
         {
             GetComponent<Animator>().SetBool("Detected", true);
-            int i = 0;
-            while(i<10)
-            {
-                i++;
-                change.a += 0.1f;
-                vision.GetComponent<SpriteRenderer>().color = change;
-            }
+            change.a = 0.5f;
+            vision.GetComponent<SpriteRenderer>().color = change;
+            GetComponent<PolygonCollider2D>().enabled = true;
+            wait++;
+        }
+        else if (wait <= 800)
+        {
+            GetComponent<Animator>().SetBool("Detected", false);
+            change.a = 0;
+            vision.GetComponent<SpriteRenderer>().color = change;
+            GetComponent<PolygonCollider2D>().enabled = false;
+            wait++;
         }
         else
         {
-            GetComponent<Animator>().SetBool("Detected", false);
-            int i = 0;
-            while(i<10)
-            {
-                i++;
-                change.a -= 0.1f;
-                vision.GetComponent<SpriteRenderer>().color = change;
-            }
+            wait = 0;
         }
     }
 }

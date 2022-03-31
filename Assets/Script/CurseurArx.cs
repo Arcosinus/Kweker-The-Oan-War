@@ -10,6 +10,10 @@ public class CurseurArx : MonoBehaviour
     public GameObject etat;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.transform.name == "Base")
+        {
+            GameObject.Find("Data").GetComponent<DataStorage>().HealAll();
+        }
         if (collision.transform.childCount == 1 && collision.GetComponent<SpriteRenderer>().color != Color.grey)
         {
             name = collision.name;

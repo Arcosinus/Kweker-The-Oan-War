@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Animationtilemap2 : MonoBehaviour
 {
     public GameObject P2;
-    public GameObject PA;
-    public GameObject PA2;
+    bool prop;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,24 +17,20 @@ public class Animationtilemap2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z == 4)
+        if (GetComponent<Tilemap>().color.g >= 255)
         {
-            transform.position = new Vector3(transform.position.x,transform.position.y,5);
-            PA.transform.position = new Vector3(PA.transform.position.x,PA.transform.position.y,4);
-            if (P2 && PA2)
+            GetComponent<Tilemap>().color = Color.blue;
+            if (P2)
             {
-                P2.transform.position = new Vector3(P2.transform.position.x,P2.transform.position.y,6);
-                PA2.transform.position = new Vector3(PA2.transform.position.x,PA2.transform.position.y,5);
+                P2.GetComponent<Tilemap>().color = Color.blue;
             }
         } 
         else
         {
-            transform.position = new Vector3(transform.position.x,transform.position.y,4);
-            PA.transform.position = new Vector3(PA.transform.position.x,PA.transform.position.y,5);
-            if (P2 && PA2)
+            GetComponent<Tilemap>().color = new Vector4(0,255,255,255);
+            if (P2)
             {
-                P2.transform.position = new Vector3(P2.transform.position.x,P2.transform.position.y,5);
-                PA2.transform.position = new Vector3(PA2.transform.position.x,PA2.transform.position.y,6);
+                P2.GetComponent<Tilemap>().color = new Vector4(0,255,255,255);
             }
         }
     }

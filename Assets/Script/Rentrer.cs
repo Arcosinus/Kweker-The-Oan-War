@@ -17,7 +17,8 @@ public class Rentrer : MonoBehaviour
     bool retour = false;
     bool entrer = true;
     bool fast = false;
-    public void retourvaisseau(){
+    public void retourvaisseau()
+    {
         if (Input.GetKeyDown(KeyCode.Space)&&fast){
             transform.position = new Vector3(0,70,transform.position.z);
             play.transform.position = new Vector3(-16,95,play.transform.position.z);
@@ -25,7 +26,8 @@ public class Rentrer : MonoBehaviour
             fondu.GetComponent<GestionWait>().waitScreen(3);
         }
     }
-    public void sortievaisseau(){
+    public void sortievaisseau()
+    {
         if (Input.GetKeyDown(KeyCode.Space)&&fast){
             transform.position = new Vector3(0,10,transform.position.z);
             play.transform.position = new Vector3(-16.65f,35.15f,play.transform.position.z);
@@ -104,8 +106,6 @@ public class Rentrer : MonoBehaviour
                     Access[0].transform.Rotate(0,0,135,Space.Self);
                     Access[1].transform.position = new Vector3(-13,24,Access[1].transform.position.z);
                     Access[1].transform.Rotate(0,0,-135,Space.Self);
-                    musique = true;
-                    ground.Play();
                 }
             }
         }

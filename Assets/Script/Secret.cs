@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Secret: MonoBehaviour
 {
     public GameObject back;
+    Color init = Color.white;
+    Color backC = Color.white;
+    bool enter;
+    bool backB;
+    int i = 0;
+    int j = 0;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
-            transform.position = new Vector3(0,0,-6);
+            enter = true;
             if (back)
             {
-                back.transform.position = new Vector3(0,0,4);
+                backB = true;
             }
         }
     }
@@ -20,16 +27,16 @@ public class Secret: MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            transform.position = new Vector3(0,0,-3);
+            enter = false;
             if (back)
             {
-                back.transform.position = new Vector3(0,0,-6);
+                backB = false;
             }
         }
         if (GetComponent<Collider2D>().enabled == false)
         {
-            transform.position = new Vector3(0,0,-6);
-            back.transform.position = new Vector3(0,0,4);
+            enter = true;
+            backB = true;
         }
     }
     // Start is called before the first frame update
@@ -41,6 +48,44 @@ public class Secret: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (enter)
+        {
+            if (i < 10)
+            {
+                i++;
+                init.a -= 0.1f;
+                GetComponent<Tilemap>().color = init;
+            }
+        }
+        else
+        {
+            if (i > 0)
+            {
+                i--;
+                init.a += 0.1f;
+                GetComponent<Tilemap>().color = init;
+            }
+        }
+        if (back)
+        {
+            if (backB)
+            {
+                if (j > 0)
+                {
+                    j--;
+                    backC.a += 0.1f;
+                    back.GetComponent<Tilemap>().color = backC;
+                }
+            }
+            else
+            {
+                if (j < 10)
+                {
+                    j++;
+                    backC.a -= 0.1f;
+                    back.GetComponent<Tilemap>().color = backC;
+                }
+            }
+        }
     }
 }

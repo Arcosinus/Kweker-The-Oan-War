@@ -14,6 +14,10 @@ public class Adversary : MonoBehaviour
     public Player play;
     public Transform[] waypoint;
     public Transform target;
+    public GameObject drops;
+    public GameObject dropm;
+    bool drop = true;
+    /*Random random = new Random();*/
     private void OnCollisionEnter2D(Collision2D collision){
         if (collision.transform.CompareTag("Player") && sante > 0)
         {
@@ -81,6 +85,29 @@ public class Adversary : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = true;
             }
         } else {
+            if(drop && play.W2 == "Napalm"){ 
+                if (play.munitionDispo == 3)
+                {
+                    GameObject soin;
+                    soin = Instantiate(drops);
+                    soin.transform.position = transform.position;
+                    drop = false;
+                }
+                else
+                {
+                    GameObject munit;
+                    munit = Instantiate(dropm);
+                    munit.transform.position = transform.position;
+                    drop = false;
+                }
+            }
+            else if (drop)
+            {
+                GameObject soin;
+                soin = Instantiate(drops);
+                soin.transform.position = transform.position;
+                drop = false;
+            }
             GetComponent<SpriteRenderer>().color = Color.red;
             GetComponent<Collider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Intro : MonoBehaviour
 {
+    public bool load = false;
     bool finintro = true;
     bool preintro = true;
     public AudioSource intromusique;
@@ -24,11 +25,15 @@ public class Intro : MonoBehaviour
             transform.Translate(0,-0.055f,0);
             cabine.Translate(0,-0.05f,0);
         }
-        if (transform.position.y <= 77)
+        if (transform.position.y <= 77 && !load)
         {
             finintro = false;
             preintro = false;
             titre.transform.position = new Vector3(titre.transform.position.x,titre.transform.position.y,0);
+        }
+        else if (transform.position.y <= 77 && load)
+        {
+            SceneManager.LoadScene("Map");
         }
         if (Input.anyKeyDown && transform.position.y >= 57.5f && transform.position.y <= 77)
         {

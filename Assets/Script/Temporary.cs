@@ -6,9 +6,9 @@ public class Temporary : MonoBehaviour
 {
     public float movement;
     public float Lifetime;
-    private void OnTriggerEnter2D(Collider2D collision)
+    private async void OnTriggerEnter2D(Collider2D collision)
     {
-        if (movement != 0 && !collision.transform.CompareTag("AttackPlayer") && !collision.transform.CompareTag("TirNapalm") && !collision.transform.CompareTag("SafeTir"))
+        if (movement != 0 && !collision.transform.CompareTag("AttackPlayer") && !collision.transform.CompareTag("TirNapalm") && !collision.transform.CompareTag("SafeTir") && !collision.transform.CompareTag("Player"))
         {
             Destroy(gameObject);
         }

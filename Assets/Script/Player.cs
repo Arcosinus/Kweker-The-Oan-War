@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     public Animator ame;
     public GameObject energy;
     public GameObject boostHUD;
+    public GameObject[] munition;
     public GameObject expression;
     public string W1;
     public string W2;
@@ -40,6 +42,32 @@ public class Player : MonoBehaviour
     int wait;
     int munit;
     int wmunit = 0;
+    public int munitionDispo = 3;
+    int i = 0;
+    public int GetSante()
+    {
+        return sante;
+    }
+    public string GetW1()
+    {
+        return W1;
+    }
+    public string GetW2()
+    {
+        return W2;
+    }
+    public void SetSante(int newS)
+    {
+        sante = newS;
+    }
+    public void SetW1(string newW)
+    {
+        W1 = newW;
+    }
+    public void SetW2(string newW)
+    {
+        W2 = newW;
+    }
     public void takeDamage(int dmg)
     {
         if (sante != 0)
@@ -102,6 +130,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(GameObject.Find("Nweapon1")&& W2 == "Napalm")
+        {
+            GameObject.Find("Nweapon1").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        if(GameObject.Find("Data"))
+        {
+            GameObject.Find("Data").GetComponent<DataStorage>().SetData();
+        }
         Origine = transform.position;
         ambiance.Play();
     }
@@ -109,6 +145,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
         transform.position = new Vector3(transform.position.x,transform.position.y,0);
         if (transform.position.y <= 16)
         {
@@ -118,13 +158,41 @@ public class Player : MonoBehaviour
         }
         if (sante > 0)
         {
+            if (W2 == "Napalm")
+            {
+                munition[0].GetComponent<SpriteRenderer>().color = Color.grey;
+                munition[1].GetComponent<SpriteRenderer>().color = Color.grey;
+                munition[2].GetComponent<SpriteRenderer>().color = Color.grey;
+                if (munitionDispo == 3)
+                {
+                    munition[0].GetComponent<SpriteRenderer>().color = Color.red;
+                    munition[1].GetComponent<SpriteRenderer>().color = Color.red;
+                    munition[2].GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                else if (munitionDispo == 2)
+                {
+                    munition[0].GetComponent<SpriteRenderer>().color = Color.red;
+                    munition[1].GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                else if (munitionDispo == 1)
+                {
+                    munition[0].GetComponent<SpriteRenderer>().color = Color.red;
+                }
+            }
+            else
+            {
+                munition[0].GetComponent<SpriteRenderer>().color = new Vector4(0,255,255,255);
+                munition[1].GetComponent<SpriteRenderer>().color = new Vector4(0,255,255,255);
+                munition[2].GetComponent<SpriteRenderer>().color = new Vector4(0,255,255,255);
+            }
             if (munit > 0)
             {
                 wmunit--;
                 if (wmunit <= 0)
                 {
                 GameObject attaquetir;
-                attaquetir = Instantiate(Napalm, GetComponent<Transform>());
+                attaquetir = Instantiate(Napalm);
+                attaquetir.transform.position = transform.position;
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
                 munit--;
@@ -166,25 +234,27 @@ public class Player : MonoBehaviour
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
                 expression.GetComponent<SpriteRenderer>().color = Color.white;
             }
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 GameObject attaque;
-                attaque = Instantiate(Punch, GetComponent<Transform>());
+                attaque = Instantiate(Punch,GetComponent<Transform>());
                 attaque.GetComponent<Direction>().enabled = false;
                 attaque.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 GameObject attaquetir;
-                attaquetir = Instantiate(Tir, GetComponent<Transform>());
+                attaquetir = Instantiate(Tir);
+                attaquetir.transform.position = transform.position;
                 attaquetir.GetComponent<Direction>().enabled = false;
                 attaquetir.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.O)&& W2 == "Napalm")
+            if (Input.GetKeyDown(KeyCode.T)&& W2 == "Napalm"  && munitionDispo > 0)
             {
+                munitionDispo--;
                 munit = 5;
             }
-            if (Input.GetKeyDown(KeyCode.L)&&!(saut))
+            if (Input.GetKeyDown(KeyCode.G)&&!(saut))
             {
                 rb.AddForce(new Vector2(0,300f));
                 saut = true;
@@ -208,7 +278,7 @@ public class Player : MonoBehaviour
                 traversable.GetComponent<Collider2D>().enabled = false;
             }
             wait++;
-            if (Input.GetKeyDown(KeyCode.M)&&!(boost))
+            if (Input.GetKeyDown(KeyCode.H)&&!(boost))
             {
                 if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
                 {
@@ -228,7 +298,7 @@ public class Player : MonoBehaviour
                 }
                 boost = true;
             }
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 transform.position = Origine;
             }

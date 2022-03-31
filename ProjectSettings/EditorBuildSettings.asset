@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Village Genetix.unity
     guid: 68d2e8ad05ac94204bba19ab3f070e5f
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: f4e5f5e1039b3448c9529bdde28116d6
   m_configObjects: {}

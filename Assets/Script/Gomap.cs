@@ -5,8 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Gomap : MonoBehaviour
 {
+    public int level;
+    public void GetLevel()
+    {
+        
+    }
     private void OnCollisionEnter2D(Collision2D collision){
         if (collision.transform.CompareTag("Player")){
+            if(GameObject.Find("Data"))
+            {
+                GameObject.Find("Data").GetComponent<DataStorage>().GetData();
+                GameObject.Find("Data").GetComponent<DataStorage>().SetLevel(level);
+                GameObject.Find("Data").GetComponent<DataStorage>().Save();
+            }
             SceneManager.LoadScene("Map");
         }
     }
