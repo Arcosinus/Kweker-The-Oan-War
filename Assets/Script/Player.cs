@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -44,6 +45,41 @@ public class Player : MonoBehaviour
     int wmunit = 0;
     public int munitionDispo = 3;
     int i = 0;
+    public int currentAmmo;
+    public int maxAmmo = 10;
+    public bool isFiring;
+    public Text ammoDisplay;
+
+    void refreshAmmo()
+      {
+        currentAmmo = maxAmmo;
+        refreshAmmoDisplay(currentAmmo, maxAmmo);
+      }
+    void fireWeapon()
+    {
+      if(currentAmmo > 0)
+      {
+        isFiring = true;
+        currentAmmo--;
+        isFiring = false;
+        refreshAmmoDisplay(currentAmmo, maxAmmo);
+        GameObject attaquetir;
+        attaquetir = Instantiate(Tir, GetComponent<Transform>());
+        attaquetir.GetComponent<Direction>().enabled = false;
+        attaquetir.GetComponent<Temporary>().enabled = true;
+      }
+      else if(currentAmmo <= 0)
+      {
+        currentAmmo = 0;
+        isFiring = false;
+        refreshAmmoDisplay(currentAmmo, maxAmmo);
+      }
+    }
+    void refreshAmmoDisplay(int currentAmmo,int maxAmmo)
+    {
+      ammoDisplay.text = currentAmmo.ToString() + " / " + maxAmmo.ToString();
+    }
+
     public int GetSante()
     {
         return sante;
@@ -86,7 +122,8 @@ public class Player : MonoBehaviour
             if (sante < 16)
             {
                 sante += soin;
-                if (sante > 16){
+                if (sante > 16)
+                {
                     sante = 16;
                 }
             }
@@ -103,7 +140,7 @@ public class Player : MonoBehaviour
             Origine = transform.position;
             ActualCheck = collision.transform;
             ActualCheck.GetComponent<SpriteRenderer>().color = Color.green;
-            
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -127,7 +164,7 @@ public class Player : MonoBehaviour
             boost = false;
         }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         if(GameObject.Find("Nweapon1")&& W2 == "Napalm")
@@ -142,7 +179,6 @@ public class Player : MonoBehaviour
         ambiance.Play();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -214,8 +250,8 @@ public class Player : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = Color.red;
                 energy.GetComponent<SpriteRenderer>().color = Color.red;
                 expression.GetComponent<SpriteRenderer>().color = Color.red;
-                } 
-                else 
+                }
+                else
                 {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -227,8 +263,8 @@ public class Player : MonoBehaviour
                     invincTime = 0;
                 }
                 invincTime++;
-            } 
-            else 
+            }
+            else
             {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 energy.GetComponent<SpriteRenderer>().color = Color.white;
@@ -241,13 +277,13 @@ public class Player : MonoBehaviour
                 attaque.GetComponent<Direction>().enabled = false;
                 attaque.GetComponent<Temporary>().enabled = true;
             }
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && !isFiring && currentAmmo > 0)
             {
-                GameObject attaquetir;
-                attaquetir = Instantiate(Tir);
-                attaquetir.transform.position = transform.position;
-                attaquetir.GetComponent<Direction>().enabled = false;
-                attaquetir.GetComponent<Temporary>().enabled = true;
+              fireWeapon();
+            }
+            if(Input.GetKeyDown(KeyCode.U) && currentAmmo >= 0)
+            {
+              refreshAmmo();
             }
             if (Input.GetKeyDown(KeyCode.T)&& W2 == "Napalm"  && munitionDispo > 0)
             {
@@ -283,16 +319,16 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
                 {
                     rb.AddForce(new Vector2(0,-500f));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A))
                 {
                     rb.AddForce(new Vector2(-3000f,0));
-                } 
+                }
                 else if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D))
                 {
                     rb.AddForce(new Vector2(3000f,0));
-                } 
-                else 
+                }
+                else
                 {
                     rb.AddForce(new Vector2(0,300f));
                 }
@@ -326,14 +362,14 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 400)
             {
                 fondu.a += 0.1f;
                 Mosaica.a += 0.1f;
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 gameOver++;
-            } 
+            }
             else if (gameOver <= 500)
             {
                 fondu.b -= 0.025f;
@@ -343,7 +379,7 @@ public class Player : MonoBehaviour
                 Gameover4.GetComponent<SpriteRenderer>().color = Mosaica;
                 Gameover5.GetComponent<SpriteRenderer>().color = Mosaica;
                 gameOver++;
-            } 
+            }
             else if (gameOver >= 550)
             {
                 if (Input.GetKeyDown(KeyCode.E))
@@ -356,7 +392,7 @@ public class Player : MonoBehaviour
                     ambiance.Play();
                 }
             }
-            else 
+            else
             {
                 Gameover.GetComponent<SpriteRenderer>().color = fondu;
                 Gameover2.GetComponent<SpriteRenderer>().color = fondu;

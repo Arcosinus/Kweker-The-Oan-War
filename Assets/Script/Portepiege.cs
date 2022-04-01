@@ -8,13 +8,7 @@ public class Portepiege : MonoBehaviour
     public void Setcapt(bool val){
         capt = val;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if(transform.position.x >= 0 && capt == false)

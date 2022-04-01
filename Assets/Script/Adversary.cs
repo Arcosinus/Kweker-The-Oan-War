@@ -18,13 +18,16 @@ public class Adversary : MonoBehaviour
     public GameObject dropm;
     bool drop = true;
     /*Random random = new Random();*/
-    private void OnCollisionEnter2D(Collision2D collision){
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.transform.CompareTag("Player") && sante > 0)
         {
             play.takeDamage(2);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision){
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.transform.CompareTag("AttackPlayer"))
         {
             sante -= 1;
@@ -35,57 +38,64 @@ public class Adversary : MonoBehaviour
             burncount = 0;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        if (sante >=0){
-            if (burn){
+        if (sante >=0)
+        {
+            if (burn)
+            {
                 if (Color.white == GetComponent<SpriteRenderer>().color)
                 {
                     GetComponent<SpriteRenderer>().color = Color.yellow;
-                } 
-                else 
+                }
+                else
                 {
                     GetComponent<SpriteRenderer>().color = Color.white;
                 }
                 burncount++;
-                if (burncount/100 == 1)
+                if (burncount / 100 == 1)
                 {
-                    sante-=1;
+                    sante -= 1;
                 }
-                if (burncount/100 == 2)
+                if (burncount / 100 == 2)
                 {
-                    sante-=1;
+                    sante -= 1;
                 }
-                if (burncount/100 == 3)
+                if (burncount / 100 == 3)
                 {
-                    sante-=1;
+                    sante -= 1;
                     burn = false;
                     burncount = 0;
                 }
             }
             Vector3 dir = target.transform.position - transform.position;
-            transform.Translate(dir.normalized*vitmov,Space.World);
-            if (Vector3.Distance(transform.position,target.transform.position) < 0.5f){
+            transform.Translate(dir.normalized * vitmov,Space.World);
+            if (Vector3.Distance(transform.position,target.transform.position) < 0.5f)
+            {
                 target = waypoint[dest];
-                if (dest == waypoint.Length-1){
+                if (dest == waypoint.Length - 1)
+                {
                     dest = 0;
-                } else {
+                }
+                else
+                {
                     dest++;
                 }
             }
-            if (target.transform.position.x < transform.position.x){
+            if (target.transform.position.x < transform.position.x)
+            {
                 GetComponent<SpriteRenderer>().flipX = false;
-            } else {
+            }
+            else
+            {
                 GetComponent<SpriteRenderer>().flipX = true;
             }
-        } else {
-            if(drop && play.W2 == "Napalm"){ 
+        }
+        else
+        {
+            if(drop && play.W2 == "Napalm")
+            {
                 if (play.munitionDispo == 3)
                 {
                     GameObject soin;
@@ -112,7 +122,8 @@ public class Adversary : MonoBehaviour
             GetComponent<Collider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
-        if (transform.position.y <= 16){
+        if (transform.position.y <= 16)
+        {
             Destroy(gameObject);
         }
     }
