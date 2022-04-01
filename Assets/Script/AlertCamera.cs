@@ -8,6 +8,7 @@ public class AlertCamera : MonoBehaviour
     public GameObject arene;
     public GameObject vision;
     bool alert;
+    bool detected;
     public bool typeAtt;
     Color change;
     int wait = 0;
@@ -19,9 +20,21 @@ public class AlertCamera : MonoBehaviour
                 if(typeAtt)
                 {
                     player.GetComponent<Player>().takeDamage(2);
+                    GameObject grab = Instantiate(GameObject.Find("Head"));
+                    grab.name = "Head" + transform.name;
+                    GameObject.Find("Head"+transform.name).transform.position = arene.transform.position;
+                    GameObject.Find("Head"+transform.name).GetComponent<AnimationLiane>().enabled = true;
                 }
                 else 
                 {
+                    if (detected)
+                    {
+                        GameObject grab = Instantiate(GameObject.Find("Head"));
+                        grab.name = "Head" + transform.name;
+                        GameObject.Find("Head"+transform.name).transform.position = arene.transform.position;
+                        GameObject.Find("Head"+transform.name).GetComponent<AnimationLiane>().enabled = true;
+                        detected = false;
+                    }
                     alert = true;
                 }
             }
@@ -30,6 +43,7 @@ public class AlertCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        detected = true;
         change = vision.GetComponent<SpriteRenderer>().color;
     }
 
@@ -38,10 +52,11 @@ public class AlertCamera : MonoBehaviour
     {
         int i = 0;
         if(alert){
-            Vector3 repouss = (arene.transform.position - player.transform.position) * 0.1f;
-            player.transform.Translate(repouss.normalized,Space.World);
+            Vector3 repouss = (arene.transform.position - player.transform.position) / 10;
+            player.transform.Translate(repouss,Space.World);
             if (Vector3.Distance(arene.transform.position,player.transform.position) < 0.5f)
             {
+                detected = true;
                 alert = false;
             }
         }
