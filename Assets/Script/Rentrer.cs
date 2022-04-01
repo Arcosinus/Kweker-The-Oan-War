@@ -106,6 +106,8 @@ public class Rentrer : MonoBehaviour
                     Access[0].transform.Rotate(0,0,135,Space.Self);
                     Access[1].transform.position = new Vector3(-13,24,Access[1].transform.position.z);
                     Access[1].transform.Rotate(0,0,-135,Space.Self);
+                    ground.Play();
+                    musique = true;
                 }
             }
         }

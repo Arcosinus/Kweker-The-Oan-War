@@ -51,6 +51,9 @@ public class Boss1 : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
         if (sante >=0)
         {
+            if (transform.position.y < 23){
+                transform.position = new Vector3(transform.position.x,22,transform.position.z);
+            }
             depl = false;
             santeHUD.GetComponent<TextMeshPro>().text = "sante : " + sante;
             if (serie == 3)
