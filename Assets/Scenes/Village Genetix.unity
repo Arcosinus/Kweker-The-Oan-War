@@ -1601,6 +1601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sante: 16
+  vuln: 1
   gameOver: 0
   ambiance: {fileID: 903869671}
   fingame: {fileID: 1691479441}
@@ -1613,12 +1614,17 @@ MonoBehaviour:
   Cam: {fileID: 2141069325}
   Punch: {fileID: 207376428}
   Tir: {fileID: 1195359831}
+  Napalm: {fileID: 0}
   rb: {fileID: 583128295}
   ame: {fileID: 583128293}
   energy: {fileID: 1978049320}
   boostHUD: {fileID: 177148608}
+  munition: []
   expression: {fileID: 1687526058}
+  W1: 
+  W2: 
   movespeed: 5
+  munitionDispo: 3
 --- !u!50 &583128295
 Rigidbody2D:
   serializedVersion: 4
@@ -2513,6 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ad54164309b4f5cb2ed0c511ee049a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!61 &1019061529
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2547,7 +2554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019061527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: 27.94, z: 0}
+  m_LocalPosition: {x: -20.69, y: 24.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4664,6 +4671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ad54164309b4f5cb2ed0c511ee049a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!61 &1928573901
 BoxCollider2D:
   m_ObjectHideFlags: 0

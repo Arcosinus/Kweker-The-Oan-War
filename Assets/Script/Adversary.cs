@@ -17,7 +17,6 @@ public class Adversary : MonoBehaviour
     public GameObject drops;
     public GameObject dropm;
     bool drop = true;
-    /*Random random = new Random();*/
     private void OnCollisionEnter2D(Collision2D collision){
         if (collision.transform.CompareTag("Player") && sante > 0)
         {
@@ -25,10 +24,6 @@ public class Adversary : MonoBehaviour
         }
     }
     private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.transform.CompareTag("AttackPlayer"))
-        {
-            sante -= 1;
-        }
         if (collision.transform.CompareTag("TirNapalm")&&Napalm)
         {
             burn = true;

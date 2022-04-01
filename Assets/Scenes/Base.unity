@@ -16067,14 +16067,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba9f890f88b84a94b3f1f58fe01eb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finintro: 0
   Script:
   - {fileID: 2126403651}
   Player: {fileID: 1972447946}
   inter: {fileID: 1905646128}
   player: {fileID: 1972447948}
-  cabine: {fileID: 0}
-  titre: {fileID: 0}
-  skip: {fileID: 838104058}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

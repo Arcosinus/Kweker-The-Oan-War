@@ -1877,7 +1877,7 @@ GameObject:
   - component: {fileID: 127443247}
   m_Layer: 0
   m_Name: Bird2
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4581,8 +4581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a92f2aa6bd343fcbcab70d20545c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: 0.2
-  Lifetime: 0.3
+  movement: 0.1
+  Lifetime: 0.2
 --- !u!212 &539369987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 555047555}
   m_Layer: 0
   m_Name: Bird3
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11562,7 +11562,7 @@ GameObject:
   - component: {fileID: 922933949}
   m_Layer: 0
   m_Name: Bird1
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41344,7 +41344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495971875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 45.5, y: 2, z: -5}
+  m_LocalPosition: {x: 0, y: 2, z: -5}
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 1}
   m_Children:
   - {fileID: 541117902}
@@ -51055,7 +51055,7 @@ GameObject:
   - component: {fileID: 1922777790}
   m_Layer: 0
   m_Name: Bird4
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51436,6 +51436,7 @@ GameObject:
   - component: {fileID: 1990927964}
   - component: {fileID: 1990927963}
   - component: {fileID: 1990927962}
+  - component: {fileID: 1990927967}
   m_Layer: 0
   m_Name: Tir
   m_TagString: AttackPlayer
@@ -51471,8 +51472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a92f2aa6bd343fcbcab70d20545c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: 0.5
-  Lifetime: 1
+  movement: 0.25
+  Lifetime: 2
 --- !u!114 &1990927964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51551,6 +51552,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1990927967
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990927961}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2023119249
 GameObject:
   m_ObjectHideFlags: 0
