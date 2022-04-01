@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public GameObject energy;
     public GameObject boostHUD;
     public GameObject expression;
-    bool saut = false;
+    // bool saut = false;
     bool boost = false;
     private Vector3 vel = Vector3.zero;
     public float movespeed;
@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
     public int maxAmmo = 10;
     public bool isFiring;
     public Text ammoDisplay;
+    private float sautValue = 12f;
+    // private float doubleSautValue = 10f;
+    private bool doubleSaut;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
 
     public void takeDamage(int dmg)
     {
@@ -80,7 +85,7 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.CompareTag("Level"))
         {
-            saut = false;
+            IsGrounded();
             boost = false;
         }
         if (collision.transform.CompareTag("Ennemy"))
@@ -93,7 +98,7 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.CompareTag("Level"))
         {
-            saut = false;
+            IsGrounded();
             boost = false;
         }
     }
@@ -105,7 +110,7 @@ public class Player : MonoBehaviour
         ammoDisplay.text = currentAmmo.ToString() + " / " + maxAmmo.ToString();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         transform.position = new Vector3(transform.position.x,transform.position.y,0);
@@ -199,11 +204,27 @@ public class Player : MonoBehaviour
               currentAmmo = maxAmmo;
               refreshAmmoDisplay(currentAmmo, maxAmmo);
             }
-            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Space) &&!(saut))
+
+            if (IsGrounded() && !Input.GetKeyDown(KeyCode.Space) || !Input.GetKeyDown(KeyCode.L))
             {
-                rb.AddForce(new Vector2(0,300f));
-                saut = true;
+                doubleSaut = false;
             }
+
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.L))
+            {
+                if (IsGrounded() || doubleSaut)
+                {
+                    // rb.velocity = new Vector2(rb.velocity.x, doubleSaut ? doubleSautValue : sautValue);
+                    rb.velocity = new Vector2(rb.velocity.x, sautValue);
+                    doubleSaut = !doubleSaut;
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
+
             if(!Input.GetKey(KeyCode.DownArrow) || !Input.GetKey(KeyCode.S))
             {
                 traversable.GetComponent<Collider2D>().enabled = true;
@@ -302,5 +323,10 @@ public class Player : MonoBehaviour
                 gameOver++;
             }
         }
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 }

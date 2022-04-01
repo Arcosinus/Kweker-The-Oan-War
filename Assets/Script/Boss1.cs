@@ -5,9 +5,19 @@ using TMPro;
 
 public class Boss1 : MonoBehaviour
 {
+    public float distanceToTarget;
+    public float attackRange;
+    private float lastAttackTime;
+    public float attackDelay;
+    public GameObject projectile;
+    public float powerLaser;
+    private bool right;
+    public Transform target;
+    public Transform raycastPoint;
+
     public int sante;
     bool depl;
-    int dest = 0;
+    // int dest = 0;
     bool change = false;
     bool gauched = false;
     int temps = 0;
@@ -21,7 +31,9 @@ public class Boss1 : MonoBehaviour
     public AudioSource ambiance;
     bool saut;
     int serie;
-    private void OnCollisionEnter2D(Collision2D collision){
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.transform.CompareTag("Player") && sante > 0)
         {
             play.takeDamage(4);
@@ -31,22 +43,20 @@ public class Boss1 : MonoBehaviour
             saut = false;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision){
-        if (collision.transform.CompareTag("AttackPlayer"))
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("AttackPlayer"))
         {
             sante -= 1;
             GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
+      distanceToTarget = Vector3.Distance(transform.position, target.position);
+
         GetComponent<SpriteRenderer>().color = Color.white;
         if (sante >=0)
         {
@@ -65,7 +75,7 @@ public class Boss1 : MonoBehaviour
                     {
                         Vector3 dir = droite.transform.position - transform.position;
                         transform.Translate(dir.normalized*vitmov,Space.World);
-                    } 
+                    }
                     else
                     {
                         Vector3 dir = gauche.transform.position - transform.position;
@@ -73,7 +83,7 @@ public class Boss1 : MonoBehaviour
                     }
                 }
             }
-            else 
+            else
             {
                 if (change)
                 {
@@ -82,7 +92,7 @@ public class Boss1 : MonoBehaviour
                     {
                         Vector3 dir = droite.transform.position - transform.position;
                         transform.Translate(dir.normalized*vitmov,Space.World);
-                    } 
+                    }
                     else
                     {
                         Vector3 dir = gauche.transform.position - transform.position;
@@ -101,6 +111,9 @@ public class Boss1 : MonoBehaviour
                 }
                 temps++;
             }
+
+            // Quaternion newRotation;
+
             if (gauched)
             {
                 if (Vector3.Distance(transform.position,droite.transform.position) < 0.5f)
@@ -108,8 +121,13 @@ public class Boss1 : MonoBehaviour
                     GetComponent<SpriteRenderer>().flipX = false;
                     gauched = false;
                     change = false;
+                    // newRotation = Quaternion.Euler (0f, 0f, 0f);
+                    // transform.rotation = newRotation;
+                    // transform.Translate(-transform.right * Time.deltaTime * vitmov,Space.Self);
+                    // right = true;
+
                 }
-            } 
+            }
             else
             {
                 if (Vector3.Distance(transform.position,gauche.transform.position) < 0.5f)
@@ -117,8 +135,14 @@ public class Boss1 : MonoBehaviour
                     GetComponent<SpriteRenderer>().flipX = true;
                     gauched = true;
                     change = false;
+                    // newRotation = Quaternion.Euler (0f, 180f, 0f);
+                    // transform.rotation = newRotation;
+                    // transform.Translate(transform.right * Time.deltaTime * vitmov,Space.Self);
+                    // right = false;
+
                 }
             }
+
             GetComponent<Animator>().SetBool("Saut", saut);
             GetComponent<Animator>().SetBool("Mouve", depl);
         } else {
@@ -133,5 +157,34 @@ public class Boss1 : MonoBehaviour
             fin.position = new Vector3(fin.position.x,fin.position.y,-4);
             Destroy(gameObject);
         }
+
+        if(distanceToTarget > attackRange)
+        {
+          Attack();
+        }
+    }
+
+    void Attack()
+    {
+      Vector3 targetDir = target.position - transform.position;
+
+      if(Time.time > lastAttackTime + attackDelay)
+      {
+        RaycastHit2D hit = Physics2D.Raycast(raycastPoint.position, transform.right,attackRange);
+        if (hit.transform == target)
+        {
+          GameObject newPowerLaser = Instantiate(projectile,transform.position, transform.rotation);
+          // if(right)
+          // {
+            // newPowerLaser.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-powerLaser,0f));
+            newPowerLaser.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(powerLaser,0f));
+          // }
+          // else {
+          //   // newPowerLaser.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(powerLaser,0f));
+          //   newPowerLaser.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-powerLaser,0f));
+          // }
+          lastAttackTime = Time.time;
+        }
+      }
     }
 }
