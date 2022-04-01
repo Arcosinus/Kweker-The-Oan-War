@@ -45,16 +45,16 @@ public class Player : MonoBehaviour
     int wmunit = 0;
     public int munitionDispo = 3;
     int i = 0;
-    public int currentAmmo;
-    public int maxAmmo = 10;
+    private int currentAmmo = 10;
+    private int maxAmmo = 10;
     public bool isFiring;
     public Text ammoDisplay;
 
     void refreshAmmo()
-      {
-        currentAmmo = maxAmmo;
-        refreshAmmoDisplay(currentAmmo, maxAmmo);
-      }
+    {
+      currentAmmo = maxAmmo;
+      refreshAmmoDisplay(currentAmmo, maxAmmo);
+    }
     void fireWeapon()
     {
       if(currentAmmo > 0)
@@ -177,6 +177,7 @@ public class Player : MonoBehaviour
         }
         Origine = transform.position;
         ambiance.Play();
+        refreshAmmoDisplay(currentAmmo, maxAmmo);
     }
 
     void Update()
@@ -281,7 +282,8 @@ public class Player : MonoBehaviour
             {
               fireWeapon();
             }
-            if(Input.GetKeyDown(KeyCode.U) && currentAmmo >= 0)
+            // if(Input.GetKeyDown(KeyCode.U) && currentAmmo >= 0)
+            if(currentAmmo <= 0)
             {
               refreshAmmo();
             }
