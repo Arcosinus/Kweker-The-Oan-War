@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraP : MonoBehaviour
 {
-    public bool finintro = true;
+    public bool finintro;
     public GameObject[] Script;
     public GameObject Player;
     public Transform inter;
@@ -15,6 +15,10 @@ public class CameraP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (finintro)
+        {
+        inter.position = new Vector3(inter.position.x,inter.position.y,-3);
+        }
     }
     // Update is called once per frame
     void Update()

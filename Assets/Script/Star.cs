@@ -6,6 +6,7 @@ public class Star : MonoBehaviour
 {
     public float start;
     public float end;
+    public float speed = -0.01f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class Star : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-0.01f,0,0);
+        transform.Translate(speed,0,0);
         if (transform.position.x <= end)
         {
             transform.position = new Vector3(start,transform.position.y,transform.position.z);

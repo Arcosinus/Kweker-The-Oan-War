@@ -3461,6 +3461,7 @@ GameObject:
   - component: {fileID: 385004864}
   - component: {fileID: 385004863}
   - component: {fileID: 385004862}
+  - component: {fileID: 385004866}
   m_Layer: 0
   m_Name: Nweapon0
   m_TagString: Untagged
@@ -3562,6 +3563,18 @@ Transform:
   m_Father: {fileID: 1432659608}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.081}
+--- !u!114 &385004866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385004861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08efa16b57448456d99a48c3b0b13ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &390554877
 GameObject:
   m_ObjectHideFlags: 0
@@ -41370,13 +41383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba9f890f88b84a94b3f1f58fe01eb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finintro: 1
   Script: []
   Player: {fileID: 628653401}
   inter: {fileID: 407747295}
   player: {fileID: 628653407}
-  cabine: {fileID: 0}
-  titre: {fileID: 0}
-  skip: {fileID: 883701426}
 --- !u!81 &1495971878
 AudioListener:
   m_ObjectHideFlags: 0
